@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DenimStore</string>
+    <string name="btntomakeorder">Кнопка для связи с менеджером</string>
+</resources>
