@@ -8,22 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 
 import tst.tertj.denimstore.R;
 import tst.tertj.denimstore.data.Offer;
 
-/**
- * Created by Натулик on 13.04.2017.
- */
-
 public class ImageFlipperAdapter extends BaseAdapter {
 
     Context context;
     Offer currentOffer;
     LayoutInflater layoutInflater;
-    private int currentImg = 1;
+    private int howMuchPhotos = 0;
 
     public ImageFlipperAdapter(Context applicationContext, Offer currentOffer) {
         this.context = applicationContext;
@@ -33,7 +32,8 @@ public class ImageFlipperAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        howMuchPhotos = currentOffer.getHowMuchPhotos();
+        return howMuchPhotos;
     }
 
     @Override
@@ -48,14 +48,17 @@ public class ImageFlipperAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        currentImg ++;
-        if(currentImg > currentOffer.getHowMuchPhotos())
-            currentImg = 1;
         convertView = layoutInflater.inflate(R.layout.layout_image_flipper, null);
         ImageView image = (ImageView) convertView.findViewById(R.id.ivImageFlipper);
-        File file = new File(Environment.getExternalStorageDirectory() + "/Denim Store/", currentOffer.getName() + "_" + String.valueOf(currentImg) + ".jpg");
-        if (file.exists()) {
-            image.setImageDrawable(Drawable.createFromPath(Environment.getExternalStorageDirectory() + "/Denim Store/" + currentOffer.getName() + "_" + String.valueOf(currentImg) + ".jpg"));
+        TextView tvImageCounter = (TextView) convertView.findViewById(R.id.tvImageCounter);
+        if(position == 0){
+
+        }else if(position == 1){
+            image.setImageDrawable(Drawable.createFromPath(Environment.getExternalStorageDirectory() + "/Denim Store/" + currentOffer.getName() + "_1.jpg"));
+            tvImageCounter.setText("1/" + (howMuchPhotos-1));
+        }else{
+            image.setImageDrawable(Drawable.createFromPath(Environment.getExternalStorageDirectory() + "/Denim Store/" + currentOffer.getName() + "_" + position + ".jpg"));
+            tvImageCounter.setText(position + "/" + (howMuchPhotos-1));
         }
         return convertView;
     }

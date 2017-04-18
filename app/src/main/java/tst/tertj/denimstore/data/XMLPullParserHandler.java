@@ -115,38 +115,41 @@ public class XMLPullParserHandler {
                                 Log.d(Const.CATEGORY_PARSER, "offer.categoryId = " + offer.getCategoryId());
 
                             } else if (tagname.equalsIgnoreCase(Const.PICTURE)) {
-                                pictures_counter++;
-                                if (pictures_counter == 1) {
-                                    offer.setPicture_1_URL(text);
-                                    Log.d(Const.TAG_PARSER, "offer.picture_1_URL = " + offer.getPicture_1_URL());
+                                if (!text.equals("      ")) {
+                                    pictures_counter++;
+                                    Log.d("Rox", "text = >>>" + text + "<<<");
+                                    if (pictures_counter == 1) {
+                                        offer.setPicture_1_URL(text);
+                                        Log.d(Const.TAG_PARSER, "offer.picture_1_URL = " + offer.getPicture_1_URL());
 
-                                } else if (pictures_counter == 2) {
-                                    offer.setPicture_2_URL(text);
-                                    Log.d(Const.TAG_PARSER, "offer.picture_2_URL = " + offer.getPicture_2_URL());
+                                    } else if (pictures_counter == 2) {
+                                        offer.setPicture_2_URL(text);
+                                        Log.d(Const.TAG_PARSER, "offer.picture_2_URL = " + offer.getPicture_2_URL());
 
-                                } else if (pictures_counter == 3) {
-                                    offer.setPicture_3_URL(text);
-                                    Log.d(Const.TAG_PARSER, "offer.picture_3_URL = " + offer.getPicture_3_URL());
+                                    } else if (pictures_counter == 3) {
+                                        offer.setPicture_3_URL(text);
+                                        Log.d(Const.TAG_PARSER, "offer.picture_3_URL = " + offer.getPicture_3_URL());
 
-                                } else if (pictures_counter == 4) {
-                                    offer.setPicture_4_URL(text);
-                                    Log.d(Const.TAG_PARSER, "offer.picture_4_URL = " + offer.getPicture_4_URL());
+                                    } else if (pictures_counter == 4) {
+                                        offer.setPicture_4_URL(text);
+                                        Log.d(Const.TAG_PARSER, "offer.picture_4_URL = " + offer.getPicture_4_URL());
 
-                                } else if (pictures_counter == 5) {
-                                    offer.setPicture_5_URL(text);
-                                    Log.d(Const.TAG_PARSER, "offer.picture_5_URL = " + offer.getPicture_5_URL());
+                                    } else if (pictures_counter == 5) {
+                                        offer.setPicture_5_URL(text);
+                                        Log.d(Const.TAG_PARSER, "offer.picture_5_URL = " + offer.getPicture_5_URL());
 
-                                } else if (pictures_counter == 6) {
-                                    offer.setPicture_6_URL(text);
-                                    Log.d(Const.TAG_PARSER, "offer.picture_6_URL = " + offer.getPicture_6_URL());
+                                    } else if (pictures_counter == 6) {
+                                        offer.setPicture_6_URL(text);
+                                        Log.d(Const.TAG_PARSER, "offer.picture_6_URL = " + offer.getPicture_6_URL());
 
-                                } else if (pictures_counter == 7) {
-                                    offer.setPicture_7_URL(text);
-                                    Log.d(Const.TAG_PARSER, "offer.picture_7_URL = " + offer.getPicture_7_URL());
+                                    } else if (pictures_counter == 7) {
+                                        offer.setPicture_7_URL(text);
+                                        Log.d(Const.TAG_PARSER, "offer.picture_7_URL = " + offer.getPicture_7_URL());
 
-                                } else if (pictures_counter == 8) {
-                                    offer.setPicture_8_URL(text);
-                                    Log.d(Const.TAG_PARSER, "offer.picture_8_URL = " + offer.getPicture_8_URL());
+                                    } else if (pictures_counter == 8) {
+                                        offer.setPicture_8_URL(text);
+                                        Log.d(Const.TAG_PARSER, "offer.picture_8_URL = " + offer.getPicture_8_URL());
+                                    }
                                 }
                                 offer.setHowMuchPhotos(pictures_counter);
                             } else if (tagname.equalsIgnoreCase(Const.NAME)) {

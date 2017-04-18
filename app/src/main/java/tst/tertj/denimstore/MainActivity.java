@@ -72,10 +72,11 @@ public class MainActivity extends AppCompatActivity implements GetProdactDatabas
         compareXMLS(currentXML, string_XML);
         XMLPullParserHandler parser = new XMLPullParserHandler();
         offersList = parser.parse(string_XML);
-        downloadPhotoBase(offersList);
+//        downloadPhotoBase(offersList);
         categoriesFragment = new CategoriesFragment();
         fTrans = getSupportFragmentManager().beginTransaction();
         fTrans.replace(R.id.flFragmentContainer, categoriesFragment);
+        fTrans.addToBackStack("CategoriesFragment");
         fTrans.commit();
     }
 
@@ -198,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements GetProdactDatabas
         selectedOfferFragment = SelectedOfferFragment.newInstance(getApplicationContext(), currentOfferList);
         fTrans = getSupportFragmentManager().beginTransaction();
         fTrans.replace(R.id.flFragmentContainer, selectedOfferFragment);
+        fTrans.addToBackStack("SelectedOfferFragment");
         fTrans.commit();
     }
 
@@ -210,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements GetProdactDatabas
         for (int i = 2; i <= offersList.getHowMuchPhotos(); i++) {
             if (i == 2) {
                 ddd(offersList.getName(), offersList.getPicture_2_URL(), i);
+
             } else if (i == 3) {
                 ddd(offersList.getName(), offersList.getPicture_3_URL(), i);
             } else if (i == 4) {
@@ -217,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements GetProdactDatabas
             } else if (i == 5) {
                 ddd(offersList.getName(), offersList.getPicture_5_URL(), i);
             }
+            Log.d(Const.TAG, "download image task for " + i + " offer image");
         }
     }
 

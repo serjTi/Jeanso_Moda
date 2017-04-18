@@ -1,14 +1,19 @@
 package tst.tertj.denimstore.fragments;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterViewFlipper;
@@ -37,7 +42,7 @@ public class SelectedOfferFragment extends Fragment implements View.OnClickListe
     private IOnMyOfferClickListener myOfferClickListener;
     private Offer currentOffer;
     private ScrollView svOffer;
-    int howMuchPicturesOnPosition = 0;
+    private int howMuchPicturesOnPosition = 0;
 
     public static SelectedOfferFragment newInstance(Context applicationContext, LinkedList<Offer> offer) {
         SelectedOfferFragment selectedOfferFragment = new SelectedOfferFragment();
@@ -67,13 +72,6 @@ public class SelectedOfferFragment extends Fragment implements View.OnClickListe
             }
 
         }
-        AVF = (AdapterViewFlipper) view.findViewById(R.id.AVF);
-        imageFlipperAdapter = new ImageFlipperAdapter(selectedOfferFragmentcontext, currentOffer);
-        AVF.setAdapter(imageFlipperAdapter);
-        AVF.setFlipInterval(1000);
-        AVF.setAutoStart(true);
-
-
         howMuchPicturesOnPosition = currentOffer.getHowMuchPhotos();
         svOffer = (ScrollView) view.findViewById(R.id.svOffer);
 
@@ -89,6 +87,11 @@ public class SelectedOfferFragment extends Fragment implements View.OnClickListe
         tvCurrentOfferCountry_of_Origin.setText(currentOffer.getCountry_of_origin());
         tvCurrentOfferPrice.setText(currentOffer.getPrice() + " " + currentOffer.getCurrencyId());
         tvCurrentOfferDescription.setText(Html.fromHtml(currentOffer.getDescription()));
+        AVF = (AdapterViewFlipper) view.findViewById(R.id.AVF);
+        imageFlipperAdapter = new ImageFlipperAdapter(selectedOfferFragmentcontext, currentOffer);
+        AVF.setAdapter(imageFlipperAdapter);
+        AVF.setFlipInterval(1500);
+        AVF.setAutoStart(true);
         return view;
     }
 
