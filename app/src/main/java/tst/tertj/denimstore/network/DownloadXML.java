@@ -68,6 +68,7 @@ public class DownloadXML extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String strXML) {
         super.onPostExecute(strXML);
+
         if (delegate != null) {
             delegate.downloadXMLisDone(strXML);
         }

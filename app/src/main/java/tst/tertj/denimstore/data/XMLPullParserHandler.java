@@ -11,8 +11,11 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.LinkedList;
 
+import tst.tertj.denimstore.manager.DataManager;
+
 public class XMLPullParserHandler {
-    LinkedList<Offer> offersList;
+
+    private LinkedList<Offer> offersList;
     private Offer offer;
     private String text;
     int pictures_counter = 0;
@@ -23,18 +26,14 @@ public class XMLPullParserHandler {
         offersList = new LinkedList<Offer>();
     }
 
-    public LinkedList<Offer> getOffers() {
-        return offersList;
-    }
-
-    public LinkedList<Offer> parse(String is) {
+    public LinkedList<Offer> parse() {
         XmlPullParserFactory factory = null;
         XmlPullParser parser = null;
         try {
             factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             parser = factory.newPullParser();
-            parser.setInput(new StringReader(is));
+            parser.setInput(new StringReader(DataManager.getInstance().xml_base));
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 String tagname = parser.getName();
@@ -184,7 +183,6 @@ public class XMLPullParserHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return offersList;
     }
 }

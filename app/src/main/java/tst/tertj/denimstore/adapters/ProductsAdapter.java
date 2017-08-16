@@ -1,8 +1,6 @@
 package tst.tertj.denimstore.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.io.File;
 import java.util.List;
 
 import tst.tertj.denimstore.R;
@@ -75,7 +70,7 @@ public class ProductsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         // fill data
-        viewHolder.ivMainPicture.setImageDrawable(Drawable.createFromPath(Environment.getExternalStorageDirectory() + "/Denim Store/" + offer.getName() + "_1.jpg"));
+        Glide.with(context).load(offer.getPicture_1_URL()).into(viewHolder.ivMainPicture);
         viewHolder.tvOfferName.setText(offer.getName());
         viewHolder.tvOfferPrice.setText(offer.getPrice() + " " + offer.getCurrencyId());
         viewHolder.tvCountryOfOrigin.setText("Страна производитель: " + offer.getCountry_of_origin());

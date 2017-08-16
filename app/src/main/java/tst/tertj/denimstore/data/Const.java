@@ -2,6 +2,7 @@ package tst.tertj.denimstore.data;
 
 public class Const {
     public static final String BASE_URL = "http://abvgde.com.ua/media/feed/prom.ua.xml";
+    public static final String PHONE_NUMBER = "+380636595767";
     public static final String CATALOG = "catalog";
     public static final String SHOP = "shop";
     public static final String PRICE = "price";

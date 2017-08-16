@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,43 +8,122 @@
     <ScrollView
         android:id="@+id/svOffer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llPrice">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <AdapterViewFlipper
-                android:id="@+id/AVF"
+            <RelativeLayout
+                android:id="@+id/rl_slider"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/vp_slider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/circle_indicator_background"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <me.relex.circleindicator.CircleIndicator
+                        android:id="@+id/vp_circleindicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ci_animator="@animator/indicator_animator"
+                        app:ci_drawable="@drawable/circle_indicator_selected"
+                        app:ci_drawable_unselected="@drawable/circle_indicator_unselected"
+                        app:ci_height="10dp"
+                        app:ci_width="10dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginLeft="2dp"
+                        />
+
+                </LinearLayout>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvCurrentOfferName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"
+                />
 
             <TextView
                 android:id="@+id/tvCurrentOfferCountry_of_Origin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                />
 
-            <TextView
-                android:id="@+id/tvCurrentOfferPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tvCurrentOfferDescription"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btnToMakeAnOrder"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btntomakeorder" />
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+
+        >
+
+        <TextView
+            android:id="@+id/tvCurrentOfferPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnToMakeAnOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:text="@string/btntomakeorder"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+</RelativeLayout>

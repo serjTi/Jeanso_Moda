@@ -1,41 +1,33 @@
 package tst.tertj.denimstore.fragments;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterViewFlipper;
 import android.widget.Button;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.daimajia.slider.library.SliderLayout;
-
 import java.util.LinkedList;
 
+import me.relex.circleindicator.CircleIndicator;
 import tst.tertj.denimstore.R;
-import tst.tertj.denimstore.adapters.ImageFlipperAdapter;
+import tst.tertj.denimstore.adapters.ImageSliderAdapter;
 import tst.tertj.denimstore.data.Offer;
+import tst.tertj.denimstore.manager.DataManager;
 
 public class SelectedOfferFragment extends Fragment implements View.OnClickListener {
 
     static Context selectedOfferFragmentcontext;
-    private ImageFlipperAdapter imageFlipperAdapter;
-    private AdapterViewFlipper AVF;
+    private ImageSliderAdapter imageSliderAdapter;
+    private ViewPager slider;
+    private CircleIndicator slider_indicator;
     private TextView tvCurrentOfferName, tvCurrentOfferCountry_of_Origin, tvCurrentOfferPrice,
             tvCurrentOfferDescription;
     private Button btnToMakeAnOrder;
@@ -61,6 +53,10 @@ public class SelectedOfferFragment extends Fragment implements View.OnClickListe
         myOfferClickListener = (IOnMyOfferClickListener) activity;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     @Nullable
     @Override
@@ -84,21 +80,29 @@ public class SelectedOfferFragment extends Fragment implements View.OnClickListe
         tvCurrentOfferDescription = (TextView) view.findViewById(R.id.tvCurrentOfferDescription);
 
         tvCurrentOfferName.setText(currentOffer.getName());
-        tvCurrentOfferCountry_of_Origin.setText(currentOffer.getCountry_of_origin());
+        tvCurrentOfferCountry_of_Origin.setText(getText(R.string.tv_country_of_origin) +
+                currentOffer.getCountry_of_origin());
         tvCurrentOfferPrice.setText(currentOffer.getPrice() + " " + currentOffer.getCurrencyId());
         tvCurrentOfferDescription.setText(Html.fromHtml(currentOffer.getDescription()));
-        AVF = (AdapterViewFlipper) view.findViewById(R.id.AVF);
-        imageFlipperAdapter = new ImageFlipperAdapter(selectedOfferFragmentcontext, currentOffer);
-        AVF.setAdapter(imageFlipperAdapter);
-        AVF.setFlipInterval(1500);
-        AVF.setAutoStart(true);
+        slider = (ViewPager) view.findViewById(R.id.vp_slider);
+        slider_indicator = (CircleIndicator) view.findViewById(R.id.vp_circleindicator);
+        imageSliderAdapter = new ImageSliderAdapter(selectedOfferFragmentcontext, currentOffer);
+
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        slider.setAdapter(imageSliderAdapter);
+        slider_indicator.setViewPager(slider);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnToMakeAnOrder:
+                DataManager.getInstance().choosen_offer = currentOffer;
                 myOfferClickListener.onOrderButtonClick();
                 break;
             default:
