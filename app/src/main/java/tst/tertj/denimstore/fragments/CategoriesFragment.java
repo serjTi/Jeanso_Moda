@@ -49,9 +49,6 @@ public class CategoriesFragment extends Fragment implements View.OnClickListener
             case R.id.btnShortsCatalog:
                 catalogClickListener.onShortsCatalogClick();
                 break;
-            case R.id.btnCatalog:
-                catalogClickListener.onCatalogClick();
-                break;
             default:
                 break;
         }
@@ -60,7 +57,6 @@ public class CategoriesFragment extends Fragment implements View.OnClickListener
         void onMenCatalogClick();
         void onWomenCatalogClick();
         void onShortsCatalogClick();
-        void onCatalogClick();
     }
 
 }

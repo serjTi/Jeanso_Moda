@@ -14,13 +14,13 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import tst.tertj.denimstore.R;
-import tst.tertj.denimstore.data.Const;
-import tst.tertj.denimstore.data.Offer;
+import tst.tertj.denimstore.constants.Const;
+import tst.tertj.denimstore.POJO.Offer;
 
 public class ProductsAdapter extends BaseAdapter {
 
     private List<Offer> offersList;
-    Context context;
+    private Context context;
 
     public ProductsAdapter(Context c, List<Offer> offerList) {
         this.offersList = offerList;
@@ -53,7 +53,6 @@ public class ProductsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         Offer offer = offersList.get(position);
-        Log.d(Const.TAG, "offer.name = " + offer.getName());
         // reuse views
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -70,10 +69,10 @@ public class ProductsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         // fill data
-        Glide.with(context).load(offer.getPicture_1_URL()).into(viewHolder.ivMainPicture);
-        viewHolder.tvOfferName.setText(offer.getName());
-        viewHolder.tvOfferPrice.setText(offer.getPrice() + " " + offer.getCurrencyId());
-        viewHolder.tvCountryOfOrigin.setText("Страна производитель: " + offer.getCountry_of_origin());
+        Glide.with(context).load(offer.images.get(0)).into(viewHolder.ivMainPicture);
+        viewHolder.tvOfferName.setText(offer.name);
+        viewHolder.tvOfferPrice.setText(offer.price + " " + offer.currencyId);
+        viewHolder.tvCountryOfOrigin.setText("Страна производитель: " + offer.country_of_origin);
         return convertView;
     }
 }

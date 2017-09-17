@@ -15,7 +15,7 @@ import java.util.LinkedList;
 
 import tst.tertj.denimstore.R;
 import tst.tertj.denimstore.adapters.ProductsAdapter;
-import tst.tertj.denimstore.data.Offer;
+import tst.tertj.denimstore.POJO.Offer;
 
 public class CatalogFragment extends Fragment implements AdapterView.OnItemClickListener {
 
@@ -24,14 +24,8 @@ public class CatalogFragment extends Fragment implements AdapterView.OnItemClick
     private LinkedList<Offer> offersList = new LinkedList<Offer>();
     private IOnMyOfferListClickListener myOfferListClickListener;
 
-    public static CatalogFragment newInstance(LinkedList<Offer> offersLinkedList) {
-        CatalogFragment catalogFragment = new CatalogFragment();
-        Bundle args = new Bundle();
-        for (int i = 0; i < offersLinkedList.size(); i++) {
-            args.putParcelable("Offer " + i, offersLinkedList.get(i));
-        }
-        catalogFragment.setArguments(args);
-        return catalogFragment;
+    public CatalogFragment(LinkedList<Offer> offersList) {
+        this.offersList = offersList;
     }
 
     @Override
@@ -46,16 +40,6 @@ public class CatalogFragment extends Fragment implements AdapterView.OnItemClick
         View view = inflater.inflate(R.layout.fragment_catalog, container, false);
         lvOffers = (ListView) view.findViewById(R.id.lvOffers);
         lvOffers.setOnItemClickListener(this);
-
-        if (getArguments() != null) {
-            for (int i = 0; i < getArguments().size(); i++) {
-                Offer offer = getArguments().getParcelable("Offer " + i);
-                if (offer != null) {
-                    offersList.add(offer);
-                }
-            }
-
-        }
         productsAdapter = new ProductsAdapter(getActivity(), offersList);
         lvOffers.setAdapter(productsAdapter);
         return view;

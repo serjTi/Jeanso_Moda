@@ -2,7 +2,7 @@ package tst.tertj.denimstore.manager;
 
 import java.util.LinkedList;
 
-import tst.tertj.denimstore.data.Offer;
+import tst.tertj.denimstore.POJO.Offer;
 
 /**
  * Created by sergey_tertychenko on 11.08.17.

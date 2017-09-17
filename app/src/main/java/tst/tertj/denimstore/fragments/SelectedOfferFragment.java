@@ -14,17 +14,14 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.LinkedList;
-
 import me.relex.circleindicator.CircleIndicator;
 import tst.tertj.denimstore.R;
 import tst.tertj.denimstore.adapters.ImageSliderAdapter;
-import tst.tertj.denimstore.data.Offer;
+import tst.tertj.denimstore.POJO.Offer;
 import tst.tertj.denimstore.manager.DataManager;
 
 public class SelectedOfferFragment extends Fragment implements View.OnClickListener {
 
-    static Context selectedOfferFragmentcontext;
     private ImageSliderAdapter imageSliderAdapter;
     private ViewPager slider;
     private CircleIndicator slider_indicator;
@@ -32,20 +29,9 @@ public class SelectedOfferFragment extends Fragment implements View.OnClickListe
             tvCurrentOfferDescription;
     private Button btnToMakeAnOrder;
     private IOnMyOfferClickListener myOfferClickListener;
-    private Offer currentOffer;
+    private Offer offer;
     private ScrollView svOffer;
     private int howMuchPicturesOnPosition = 0;
-
-    public static SelectedOfferFragment newInstance(Context applicationContext, LinkedList<Offer> offer) {
-        SelectedOfferFragment selectedOfferFragment = new SelectedOfferFragment();
-        selectedOfferFragmentcontext = applicationContext;
-        Bundle args = new Bundle();
-        for (int i = 0; i < offer.size(); i++) {
-            args.putParcelable("Offer " + i, offer.get(i));
-        }
-        selectedOfferFragment.setArguments(args);
-        return selectedOfferFragment;
-    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -62,13 +48,8 @@ public class SelectedOfferFragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_selected_offer, container, false);
-        if (getArguments() != null) {
-            for (int i = 0; i < getArguments().size(); i++) {
-                currentOffer = getArguments().getParcelable("Offer " + i);
-            }
-
-        }
-        howMuchPicturesOnPosition = currentOffer.getHowMuchPhotos();
+        offer = DataManager.getInstance().choosen_offer;
+        howMuchPicturesOnPosition = offer.images.size();
         svOffer = (ScrollView) view.findViewById(R.id.svOffer);
 
         btnToMakeAnOrder = (Button) view.findViewById(R.id.btnToMakeAnOrder);
@@ -79,14 +60,14 @@ public class SelectedOfferFragment extends Fragment implements View.OnClickListe
         tvCurrentOfferPrice = (TextView) view.findViewById(R.id.tvCurrentOfferPrice);
         tvCurrentOfferDescription = (TextView) view.findViewById(R.id.tvCurrentOfferDescription);
 
-        tvCurrentOfferName.setText(currentOffer.getName());
+        tvCurrentOfferName.setText(offer.name);
         tvCurrentOfferCountry_of_Origin.setText(getText(R.string.tv_country_of_origin) +
-                currentOffer.getCountry_of_origin());
-        tvCurrentOfferPrice.setText(currentOffer.getPrice() + " " + currentOffer.getCurrencyId());
-        tvCurrentOfferDescription.setText(Html.fromHtml(currentOffer.getDescription()));
+                offer.country_of_origin);
+        tvCurrentOfferPrice.setText(offer.price + " " + offer.currencyId);
+        tvCurrentOfferDescription.setText(Html.fromHtml(offer.description));
         slider = (ViewPager) view.findViewById(R.id.vp_slider);
         slider_indicator = (CircleIndicator) view.findViewById(R.id.vp_circleindicator);
-        imageSliderAdapter = new ImageSliderAdapter(selectedOfferFragmentcontext, currentOffer);
+        imageSliderAdapter = new ImageSliderAdapter(getContext(), offer);
 
         return view;
     }
@@ -102,7 +83,7 @@ public class SelectedOfferFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnToMakeAnOrder:
-                DataManager.getInstance().choosen_offer = currentOffer;
+                DataManager.getInstance().choosen_offer = offer;
                 myOfferClickListener.onOrderButtonClick();
                 break;
             default:

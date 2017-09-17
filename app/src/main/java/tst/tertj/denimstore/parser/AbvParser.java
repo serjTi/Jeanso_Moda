@@ -1,4 +1,4 @@
-package tst.tertj.denimstore.data;
+package tst.tertj.denimstore.parser;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,18 +11,20 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.LinkedList;
 
+import tst.tertj.denimstore.POJO.Offer;
+import tst.tertj.denimstore.constants.Const;
 import tst.tertj.denimstore.manager.DataManager;
 
-public class XMLPullParserHandler {
+public class AbvParser {
 
     private LinkedList<Offer> offersList;
+    private LinkedList<String> images_list;
     private Offer offer;
     private String text;
-    int pictures_counter = 0;
     String zpt = ", ";
     boolean duplicateOffers = false;
 
-    public XMLPullParserHandler() {
+    public AbvParser() {
         offersList = new LinkedList<Offer>();
     }
 
@@ -41,6 +43,7 @@ public class XMLPullParserHandler {
                     case XmlPullParser.START_TAG:
                         if (tagname.equalsIgnoreCase(Const.OFFER)) {
                             offer = new Offer();
+                            images_list.clear();
                             duplicateOffers = false;
                             Log.d(Const.TAG_PARSER, "new offer" + offer.toString());
 
@@ -53,7 +56,7 @@ public class XMLPullParserHandler {
                             for (int i = 0; i < parser.getAttributeCount(); i++) {
                                 tmp = parser.getAttributeName(i);
                                 if (tmp.equalsIgnoreCase(Const.ID_ATTRIBUTE)) {
-                                    offer.setOffer_id(parser.getAttributeValue(i));
+                                    offer.offer_id = parser.getAttributeValue(i);
                                 }
                             }
                             if (!TextUtils.isEmpty(tmp))
@@ -72,14 +75,14 @@ public class XMLPullParserHandler {
                                     String cdata = parser.getText();
                                     if (offersList.size() >= 1) {
                                         Offer lastListOffer = offersList.getLast();
-                                        if (lastListOffer.getName().equals(offer.getName())) {
-                                            lastListOffer.setSizes(lastListOffer.getSizes() + zpt + cdata);
+                                        if (lastListOffer.name.equals(offer.name)) {
+                                            lastListOffer.sizes = (lastListOffer.sizes + zpt + cdata);
                                             duplicateOffers = true;
                                         } else {
-                                            offer.setSizes(cdata);
+                                            offer.sizes = cdata;
                                         }
                                     } else {
-                                        offer.setSizes(cdata);
+                                        offer.sizes = cdata;
                                     }
 
                                     Log.d(Const.TAG_SIZE, "cdata = " + cdata);
@@ -96,72 +99,24 @@ public class XMLPullParserHandler {
                         if (offer != null) {
                             if (tagname.equalsIgnoreCase(Const.OFFER)) {
                                 if (!duplicateOffers) {
+                                    offer.images = images_list;
                                     offersList.add(offer);
                                 }
                                 offer = null;
-                                pictures_counter = 0;
-                                Log.d(Const.TAG_PARSER, "offer was add to linked list");
                             } else if (tagname.equalsIgnoreCase(Const.PRICE)) {
-                                offer.setPrice(text);
-                                Log.d(Const.TAG_PARSER, "offer.price = " + offer.getPrice());
+                                offer.price = text;
                             } else if (tagname.equalsIgnoreCase(Const.CURRENCY_ID)) {
-                                offer.setCurrencyId(text);
-                                Log.d(Const.TAG_PARSER, "offer.currencyId = " + offer.getCurrencyId());
-
+                                offer.currencyId = text;
                             } else if (tagname.equalsIgnoreCase(Const.CATEGORY_ID)) {
-                                offer.setCategoryId(text);
-                                Log.d(Const.TAG_PARSER, "offer.categoryId = " + offer.getCategoryId());
-                                Log.d(Const.CATEGORY_PARSER, "offer.categoryId = " + offer.getCategoryId());
-
+                                offer.categoryId = text;
                             } else if (tagname.equalsIgnoreCase(Const.PICTURE)) {
-                                if (!text.equals("      ")) {
-                                    pictures_counter++;
-                                    Log.d("Rox", "text = >>>" + text + "<<<");
-                                    if (pictures_counter == 1) {
-                                        offer.setPicture_1_URL(text);
-                                        Log.d(Const.TAG_PARSER, "offer.picture_1_URL = " + offer.getPicture_1_URL());
-
-                                    } else if (pictures_counter == 2) {
-                                        offer.setPicture_2_URL(text);
-                                        Log.d(Const.TAG_PARSER, "offer.picture_2_URL = " + offer.getPicture_2_URL());
-
-                                    } else if (pictures_counter == 3) {
-                                        offer.setPicture_3_URL(text);
-                                        Log.d(Const.TAG_PARSER, "offer.picture_3_URL = " + offer.getPicture_3_URL());
-
-                                    } else if (pictures_counter == 4) {
-                                        offer.setPicture_4_URL(text);
-                                        Log.d(Const.TAG_PARSER, "offer.picture_4_URL = " + offer.getPicture_4_URL());
-
-                                    } else if (pictures_counter == 5) {
-                                        offer.setPicture_5_URL(text);
-                                        Log.d(Const.TAG_PARSER, "offer.picture_5_URL = " + offer.getPicture_5_URL());
-
-                                    } else if (pictures_counter == 6) {
-                                        offer.setPicture_6_URL(text);
-                                        Log.d(Const.TAG_PARSER, "offer.picture_6_URL = " + offer.getPicture_6_URL());
-
-                                    } else if (pictures_counter == 7) {
-                                        offer.setPicture_7_URL(text);
-                                        Log.d(Const.TAG_PARSER, "offer.picture_7_URL = " + offer.getPicture_7_URL());
-
-                                    } else if (pictures_counter == 8) {
-                                        offer.setPicture_8_URL(text);
-                                        Log.d(Const.TAG_PARSER, "offer.picture_8_URL = " + offer.getPicture_8_URL());
-                                    }
-                                }
-                                offer.setHowMuchPhotos(pictures_counter);
+                                images_list.add(text);
                             } else if (tagname.equalsIgnoreCase(Const.NAME)) {
-                                offer.setName(text);
-                                Log.d(Const.TAG_PARSER, "offer.name = " + offer.getName());
-
+                                offer.name = text;
                             } else if (tagname.equalsIgnoreCase(Const.DESCRIPTION)) {
-                                offer.setDescription(text);
-                                Log.d(Const.TAG_PARSER, "offer.description = " + offer.getDescription());
-
+                                offer.description = text;
                             } else if (tagname.equalsIgnoreCase(Const.COUNTRY_OF_ORIGIN)) {
-                                offer.setCountry_of_origin(text);
-                                Log.d(Const.TAG_PARSER, "offer.country_of_origin = " + offer.getCountry_of_origin());
+                                offer.country_of_origin = text;
                             }
                         }
                         Log.d(Const.TAG_PARSER, "END_TAG: имя тега = " + tagname);
@@ -170,6 +125,7 @@ public class XMLPullParserHandler {
 
                     case XmlPullParser.START_DOCUMENT:
                         Log.d(Const.TAG_PARSER, "Начало документа");
+                        images_list = new LinkedList<>();
                         break;
 
                     default:

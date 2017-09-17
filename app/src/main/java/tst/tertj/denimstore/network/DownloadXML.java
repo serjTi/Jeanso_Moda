@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import tst.tertj.denimstore.data.Const;
+import tst.tertj.denimstore.constants.Const;
 import tst.tertj.denimstore.interfaces.GetProdactDatabase;
 
 public class DownloadXML extends AsyncTask<String, Void, String> {

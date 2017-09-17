@@ -1,4 +1,4 @@
-package tst.tertj.denimstore.data;
+package tst.tertj.denimstore.constants;
 
 public class Const {
     public static final String BASE_URL = "http://abvgde.com.ua/media/feed/prom.ua.xml";
@@ -25,7 +25,7 @@ public class Const {
     public static final String TAG_SIZE = "size";
     public static final String CATEGORY_PARSER = "CATEGORY_PARSER";
     public static final String TAG_LIST_NAMES = "TAG_LIST_NAMES";
-    public static final String TAG_PARSER = "XMLPullParserHandler";
+    public static final String TAG_PARSER = "AbvParser";
     public static final String MY_INFO_TAG = "MY_INFO_TAG";
 
     public static final String SHORTS_CATEGORY = "4";
