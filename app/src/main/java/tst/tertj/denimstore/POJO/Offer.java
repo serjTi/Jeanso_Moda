@@ -6,6 +6,7 @@ public class Offer {
 
     public String offer_id;
     public String price;
+    public String drop_price;
     public String categoryId; //категория( мужские джинсы, женские, шорты, брюки)
     public String currencyId; // валюта UAH
     public LinkedList<String> images;
@@ -15,5 +16,6 @@ public class Offer {
     public String color;
     public String brand;
     public String country_of_origin;
+    public String diller;
 
 }

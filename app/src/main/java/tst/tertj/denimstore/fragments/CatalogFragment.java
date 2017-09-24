@@ -21,7 +21,7 @@ public class CatalogFragment extends Fragment implements AdapterView.OnItemClick
 
     private ProductsAdapter productsAdapter;
     private ListView lvOffers;
-    private LinkedList<Offer> offersList = new LinkedList<Offer>();
+    private LinkedList<Offer> offersList = new LinkedList<>();
     private IOnMyOfferListClickListener myOfferListClickListener;
 
     public CatalogFragment(LinkedList<Offer> offersList) {
@@ -40,9 +40,13 @@ public class CatalogFragment extends Fragment implements AdapterView.OnItemClick
         View view = inflater.inflate(R.layout.fragment_catalog, container, false);
         lvOffers = (ListView) view.findViewById(R.id.lvOffers);
         lvOffers.setOnItemClickListener(this);
-        productsAdapter = new ProductsAdapter(getActivity(), offersList);
-        lvOffers.setAdapter(productsAdapter);
-        return view;
+        if(offersList.size() > 0) {
+            productsAdapter = new ProductsAdapter(getActivity(), offersList);
+            lvOffers.setAdapter(productsAdapter);
+        } else{
+
+        }
+            return view;
     }
 
     @Override

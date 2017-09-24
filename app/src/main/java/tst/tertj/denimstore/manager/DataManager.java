@@ -12,11 +12,48 @@ public class DataManager {
 
     private static DataManager _instance;
 
-    public String xml_base;
+    public String abv_xml_base;
+    public String tos_xml_base;
+    public String balani_xml_base;
+    public boolean is_base_download;
+
     public LinkedList<Offer> offersList;
-    public LinkedList<Offer> menCatalog;
-    public LinkedList<Offer> womenCatalog;
     public LinkedList<Offer> shortsCatalog;
+
+    public LinkedList<Offer> women_leggins;
+    public LinkedList<Offer> women_jeans;
+    public LinkedList<Offer> women_blouse_shirt;
+    public LinkedList<Offer> women_sweaters;
+    public LinkedList<Offer> women_t_shirt;
+    public LinkedList<Offer> women_cardigans;
+    public LinkedList<Offer> women_waistcoat;
+    public LinkedList<Offer> women_trousers;
+    public LinkedList<Offer> women_dresses;
+    public LinkedList<Offer> women_shoes;
+    public LinkedList<Offer> women_jackets;
+    public LinkedList<Offer> women_underwear;
+    public LinkedList<Offer> women_overalls;
+    public LinkedList<Offer> women_swimsuit;
+    public LinkedList<Offer> women_tunic;
+    public LinkedList<Offer> women_skirts;
+
+    public LinkedList<Offer> child_t_shorts;
+    public LinkedList<Offer> child_skirts;
+    public LinkedList<Offer> child_sweaters;
+    public LinkedList<Offer> child_shorts;
+
+    public LinkedList<Offer> men_jeans;
+    public LinkedList<Offer> men_trousers;
+    public LinkedList<Offer> men_sweaters;
+    public LinkedList<Offer> men_jackets;
+    public LinkedList<Offer> men_waistcoat;
+    public LinkedList<Offer> men_maiki;
+    public LinkedList<Offer> men_shirts;
+    public LinkedList<Offer> men_pizdaki;
+    public LinkedList<Offer> men_t_shirts;
+    public LinkedList<Offer> men_underwear;
+
+
     public Offer choosen_offer;
 
     public static DataManager getInstance() {
@@ -27,11 +64,47 @@ public class DataManager {
     }
 
     private DataManager() {
-        xml_base = "";
-        offersList = new LinkedList<>();
-        menCatalog = new LinkedList<>();
-        womenCatalog = new LinkedList<>();
-        shortsCatalog = new LinkedList<>();
+        abv_xml_base = "";
+        tos_xml_base = "";
+        balani_xml_base = "";
+        is_base_download = false;
         choosen_offer = new Offer();
+
+        offersList = new LinkedList<>();
+
+        women_jeans = new LinkedList<>();
+        shortsCatalog = new LinkedList<>();
+        women_leggins = new LinkedList<>();
+        women_blouse_shirt = new LinkedList<>();
+        women_sweaters = new LinkedList<>();
+        women_t_shirt = new LinkedList<>();
+        women_cardigans = new LinkedList<>();
+        women_waistcoat = new LinkedList<>();
+        women_trousers = new LinkedList<>();
+        women_dresses = new LinkedList<>();
+        women_shoes = new LinkedList<>();
+        women_jackets = new LinkedList<>();
+        women_underwear = new LinkedList<>();
+        women_overalls = new LinkedList<>();
+        women_swimsuit = new LinkedList<>();
+        women_tunic = new LinkedList<>();
+        women_skirts = new LinkedList<>();
+
+        child_shorts = new LinkedList<>();
+        child_skirts = new LinkedList<>();
+        child_sweaters = new LinkedList<>();
+        child_t_shorts = new LinkedList<>();
+
+        men_jeans = new LinkedList<>();
+        men_trousers = new LinkedList<>();
+        men_sweaters = new LinkedList<>();
+        men_jackets = new LinkedList<>();
+        men_waistcoat = new LinkedList<>();
+        men_maiki = new LinkedList<>();
+        men_shirts = new LinkedList<>();
+        men_pizdaki = new LinkedList<>();
+        men_t_shirts = new LinkedList<>();
+        men_underwear = new LinkedList<>();
+
     }
 }

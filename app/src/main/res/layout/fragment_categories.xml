@@ -2,30 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="25dp"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnMenCatalog"
+    <ExpandableListView
+        android:id="@+id/elvMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Мужчинам"/>
+        android:layout_height="wrap_content">
+    </ExpandableListView>
 
-    <Button
-        android:id="@+id/btnWomenCatalog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Женщинам"
-        />
-
-    <Button
-        android:id="@+id/btnShortsCatalog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Шорты"/>
-
-    <Button
-        android:id="@+id/btnCatalog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Весь каталог"/>
 </LinearLayout>

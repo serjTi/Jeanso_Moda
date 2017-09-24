@@ -61,8 +61,10 @@ public class SelectedOfferFragment extends Fragment implements View.OnClickListe
         tvCurrentOfferDescription = (TextView) view.findViewById(R.id.tvCurrentOfferDescription);
 
         tvCurrentOfferName.setText(offer.name);
-        tvCurrentOfferCountry_of_Origin.setText(getText(R.string.tv_country_of_origin) +
-                offer.country_of_origin);
+        if(offer.country_of_origin != null) {
+            tvCurrentOfferCountry_of_Origin.setText(getText(R.string.tv_country_of_origin) +
+                    offer.country_of_origin);
+        }
         tvCurrentOfferPrice.setText(offer.price + " " + offer.currencyId);
         tvCurrentOfferDescription.setText(Html.fromHtml(offer.description));
         slider = (ViewPager) view.findViewById(R.id.vp_slider);

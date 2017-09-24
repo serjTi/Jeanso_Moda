@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import tst.tertj.denimstore.POJO.Offer;
@@ -23,19 +24,21 @@ public class AbvParser {
     private String text;
     String zpt = ", ";
     boolean duplicateOffers = false;
+    private DataManager dataManager = DataManager.getInstance();
 
     public AbvParser() {
         offersList = new LinkedList<Offer>();
+
     }
 
-    public LinkedList<Offer> parse() {
+    public boolean parse() {
         XmlPullParserFactory factory = null;
         XmlPullParser parser = null;
         try {
             factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             parser = factory.newPullParser();
-            parser.setInput(new StringReader(DataManager.getInstance().xml_base));
+            parser.setInput(new StringReader(DataManager.getInstance().abv_xml_base));
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 String tagname = parser.getName();
@@ -43,7 +46,8 @@ public class AbvParser {
                     case XmlPullParser.START_TAG:
                         if (tagname.equalsIgnoreCase(Const.OFFER)) {
                             offer = new Offer();
-                            images_list.clear();
+                            offer.diller = Const.Dillers.ABV;
+                            images_list = new LinkedList<>();
                             duplicateOffers = false;
                             Log.d(Const.TAG_PARSER, "new offer" + offer.toString());
 
@@ -101,7 +105,9 @@ public class AbvParser {
                                 if (!duplicateOffers) {
                                     offer.images = images_list;
                                     offersList.add(offer);
+                                    addOfferByCategory(offer);
                                 }
+                                images_list = null;
                                 offer = null;
                             } else if (tagname.equalsIgnoreCase(Const.PRICE)) {
                                 offer.price = text;
@@ -110,22 +116,24 @@ public class AbvParser {
                             } else if (tagname.equalsIgnoreCase(Const.CATEGORY_ID)) {
                                 offer.categoryId = text;
                             } else if (tagname.equalsIgnoreCase(Const.PICTURE)) {
+                                if(!text.equals("      ")){
                                 images_list.add(text);
+                                }
                             } else if (tagname.equalsIgnoreCase(Const.NAME)) {
                                 offer.name = text;
                             } else if (tagname.equalsIgnoreCase(Const.DESCRIPTION)) {
                                 offer.description = text;
                             } else if (tagname.equalsIgnoreCase(Const.COUNTRY_OF_ORIGIN)) {
                                 offer.country_of_origin = text;
+                            } else if (tagname.equalsIgnoreCase(Const.OFFERS)){
+                                Collections.reverse(dataManager.men_jeans);
+                                Collections.reverse(dataManager.women_jeans);
+
                             }
                         }
-                        Log.d(Const.TAG_PARSER, "END_TAG: имя тега = " + tagname);
-                        Log.d(Const.TAG_PARSER, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
                         break;
 
                     case XmlPullParser.START_DOCUMENT:
-                        Log.d(Const.TAG_PARSER, "Начало документа");
-                        images_list = new LinkedList<>();
                         break;
 
                     default:
@@ -136,10 +144,29 @@ public class AbvParser {
 
         } catch (XmlPullParserException e) {
             e.printStackTrace();
+            return false;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-        return offersList;
+        return true;
+    }
+
+    private void addOfferByCategory(Offer offer) {
+        String category_id = offer.categoryId;
+        switch (category_id) {
+            case Const.MEN_CATEGORY:
+                dataManager.men_jeans.add(offer);
+                break;
+            case Const.WOMEN_CATEGORY:
+                dataManager.women_jeans.add(offer);
+                break;
+            case Const.SHORTS_CATEGORY:
+                dataManager.shortsCatalog.add(offer);
+            break;
+        default:
+            break;
+        }
     }
 }
 
