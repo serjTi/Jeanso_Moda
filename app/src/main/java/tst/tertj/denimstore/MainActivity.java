@@ -9,13 +9,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ProgressBar;
 
-import java.util.Collections;
 import java.util.LinkedList;
 
 import tst.tertj.denimstore.POJO.Category;
 import tst.tertj.denimstore.POJO.Offer;
+import tst.tertj.denimstore.constants.Categories;
 import tst.tertj.denimstore.constants.Const;
 import tst.tertj.denimstore.custom.OrderingTypeDialog;
 import tst.tertj.denimstore.fragments.CatalogFragment;
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements GetProdactDatabas
         if (!dataManager.is_base_download) {
             new DownloadABVXML(this).execute();
             new DownloadTosXml(this).execute();
-//        new DownloadBalaniXML(this).execute();
         }
     }
 
@@ -77,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements GetProdactDatabas
     public void download_abv_xml_is_done(String string_XML) {
         dataManager.abv_xml_base = string_XML;
         AbvParser parser = new AbvParser();
-        LinkedList<Offer> offers = new LinkedList<>();
         if (dataManager.abv_xml_base != null) {
             if (parser.parse()) {
                 checkForDismissProgressDialog();
@@ -99,25 +96,11 @@ public class MainActivity extends AppCompatActivity implements GetProdactDatabas
         dataManager.tos_xml_base = string_XML;
         Log.d(LOG_TAG, "tos_xml = " + string_XML);
         TosParser parser = new TosParser();
-        LinkedList<Offer> offers = new LinkedList<>();
         if (dataManager.tos_xml_base != null) {
             if (parser.parse()) {
                 checkForDismissProgressDialog();
             }
         }
-    }
-
-    @Override
-    public void download_balani_xml(String string_XML) {
-//        Log.d(LOG_TAG, "balani_xml = " + string_XML);
-//        dataManager.balani_xml_base = string_XML;
-//        BalaniParser parser = new BalaniParser();
-//        LinkedList<Offer> offers = new LinkedList<>();
-//        if (dataManager.balani_xml_base != null) {
-//            offers = parser.parse();
-//            dataManager.women_dresses = offers;
-//        }
-//        startCategoriesFragment();
     }
 
     private void startCategoriesFragment() {
@@ -173,72 +156,191 @@ public class MainActivity extends AppCompatActivity implements GetProdactDatabas
     }
 
     @Override
-    public void onCatalogClick(Category category) {
-        int _id = category._id;
-        switch (_id) {
-            case 401:
-                showCatalogFragment(dataManager.women_underwear);
-                break;
-            case 402:
-                showCatalogFragment(dataManager.women_blouse_shirt);
-                break;
-            case 403:
-                showCatalogFragment(dataManager.women_trousers);
-                break;
-            case 404:
-                showCatalogFragment(dataManager.women_jeans);
-                break;
-            case 405:
-                showCatalogFragment(dataManager.women_waistcoat);
-                break;
-            case 406:
-                showCatalogFragment(dataManager.women_cardigans);
-                break;
-            case 407:
-                showCatalogFragment(dataManager.women_overalls);
-            case 408:
-                showCatalogFragment(dataManager.women_swimsuit);
-                break;
-            case 409:
-                showCatalogFragment(dataManager.women_jackets);
-                break;
-            case 410:
-                showCatalogFragment(dataManager.women_leggins);
-                break;
-            case 411:
-                showCatalogFragment(dataManager.women_t_shirt);
-                break;
-            case 412:
-                showCatalogFragment(dataManager.women_dresses);
-                break;
-            case 413:
-                showCatalogFragment(dataManager.women_sweaters);
-                break;
-            case 414:
-                showCatalogFragment(dataManager.women_tunic);
-                break;
-            case 415:
-                showCatalogFragment(dataManager.shortsCatalog);
-                break;
-            case 416:
-                showCatalogFragment(dataManager.women_skirts);
-                break;
-            case 417:
-                showCatalogFragment(dataManager.women_shoes);
-                break;
-            case 301:
-                showCatalogFragment(dataManager.child_shorts);
-                break;
-            case 302:
-                showCatalogFragment(dataManager.child_t_shorts);
-                break;
-            case 303:
-                showCatalogFragment(dataManager.child_sweaters);
-                break;
-            case 304:
-                showCatalogFragment(dataManager.child_skirts);
+    public void onCategoryClick(Category category) {
+        String parent_name = category.parent;
+        switch (parent_name) {
+            case Categories.WOMEN_CATEGORY:
+                switch (category.child) {
+                    case "Бельё":
+                        showCatalogFragment(dataManager.women_underwear);
+                        break;
+
+                    case "Блузки, рубашки":
+                        showCatalogFragment(dataManager.women_blouse_shirt);
+                        break;
+
+                    case "Брюки":
+                        showCatalogFragment(dataManager.women_trousers);
+                        break;
+
+                    case "Джинсы":
+                        showCatalogFragment(dataManager.women_jeans);
+                        break;
+
+                    case "Жилеты, корсеты":
+                        showCatalogFragment(dataManager.women_waistcoat);
+                        break;
+
+                    case "Кардиганы":
+                        showCatalogFragment(dataManager.women_cardigans);
+                        break;
+
+                    case "Комбинезоны":
+                        showCatalogFragment(dataManager.women_overalls);
+                        break;
+
+                    case "Купальники":
+                        showCatalogFragment(dataManager.women_swimsuit);
+                        break;
+
+                    case "Куртки, пиджаки":
+                        showCatalogFragment(dataManager.women_jackets);
+                        break;
+
+                    case "Лосины":
+                        showCatalogFragment(dataManager.women_leggins);
+                        break;
+
+                    case "Майки, футболки":
+                        showCatalogFragment(dataManager.women_t_shirt);
+                        break;
+
+                    case "Платья":
+                        showCatalogFragment(dataManager.women_dresses);
+                        break;
+
+                    case "Свитера":
+                        showCatalogFragment(dataManager.women_sweaters);
+                        break;
+
+                    case "Туники":
+                        showCatalogFragment(dataManager.women_tunic);
+                        break;
+
+                    case "Шорты":
+                        showCatalogFragment(dataManager.shortsCatalog);
+                        break;
+
+                    case "Юбки":
+                        showCatalogFragment(dataManager.women_skirts);
+                        break;
+
+                    default:
+                        break;
+                }
                 break;
 
+            case Categories.MEN_CATEGORY:
+                switch (category.child) {
+                    case "Джинсы":
+                        showCatalogFragment(dataManager.men_jeans);
+                        break;
+
+                    case "Брюки":
+                        showCatalogFragment(dataManager.men_trousers);
+                        break;
+
+                    case "Свитера":
+                        showCatalogFragment(dataManager.men_sweaters);
+                        break;
+
+                    case "Куртки":
+                        showCatalogFragment(dataManager.men_jackets);
+                        break;
+
+                    case "Жилетки":
+                        showCatalogFragment(dataManager.men_waistcoat);
+                        break;
+
+                    case "Майки":
+                        showCatalogFragment(dataManager.men_maiki);
+                        break;
+
+                    case "Рубашки":
+                        showCatalogFragment(dataManager.men_shirts);
+                        break;
+
+                    case "Пиджаки":
+                        showCatalogFragment(dataManager.men_pizdaki);
+                        break;
+
+                    case "Футболки":
+                        showCatalogFragment(dataManager.men_t_shirts);
+                        break;
+
+                    case "Белье":
+                        showCatalogFragment(dataManager.men_underwear);
+                        break;
+
+                    default:
+                        break;
+
+                }
+                break;
+
+            case Categories.CHILDREN_CATEGORY:
+                switch (category.child) {
+                    case "Шорты":
+                        showCatalogFragment(dataManager.child_shorts);
+                        break;
+                    case "Футболки":
+                        showCatalogFragment(dataManager.child_t_shorts);
+                        break;
+                    case "Батники":
+                        showCatalogFragment(dataManager.child_sweaters);
+                        break;
+                    case "Юбки":
+                        showCatalogFragment(dataManager.child_skirts);
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+
+            case Categories.ACCESSORIES_CATEGORY:
+                switch (category.child) {
+                    case "Ремни":
+                        showCatalogFragment(dataManager.accessories_belt);
+                        break;
+                    case "Бабочки":
+                        showCatalogFragment(dataManager.accessories_bow_tea);
+                        break;
+                    case "Подтяжки":
+                        showCatalogFragment(dataManager.accessories_suspenders);
+                        break;
+                    case "Галстуки":
+                        showCatalogFragment(dataManager.accessories_tie);
+                        break;
+
+                    case "Сумки, кошельки":
+                        showCatalogFragment(dataManager.accessories_bags_wallets);
+                        break;
+
+                    case "Шапки":
+                        showCatalogFragment(dataManager.accessories_hat);
+                        break;
+
+                    case "Шарфы":
+                        showCatalogFragment(dataManager.accessories_scarf);
+                        break;
+
+                    case "Перчатки":
+                        showCatalogFragment(dataManager.accessories_gloves);
+                        break;
+
+                    case "Очки":
+                        showCatalogFragment(dataManager.accessories_sunglasses);
+                        break;
+
+                    case "Шляпы":
+                        showCatalogFragment(dataManager.accessories_hat_2);
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
 
             default:
                 break;

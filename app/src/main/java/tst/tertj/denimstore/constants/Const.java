@@ -1,7 +1,8 @@
 package tst.tertj.denimstore.constants;
 
 public class Const {
-    public static final String BASE_URL = "http://abvgde.com.ua/media/feed/prom.ua.xml";
+    public static final String ABV_BASE_URL = "http://abvgde.com.ua/media/feed/prom.ua.xml";
+    public static final String TOS_BASE_URL = "https://timeofstyle.com/prom_yml_drop_catalog.xml";
     public static final String PHONE_NUMBER = "+380636595767";
     public static final String PRICE = "price";
     public static final String PICTURE = "picture";

@@ -7,36 +7,28 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import tst.tertj.denimstore.POJO.Category;
 import tst.tertj.denimstore.R;
 import tst.tertj.denimstore.constants.Categories;
 
-public class CategoriesFragment extends Fragment implements
-        AdapterView.OnItemClickListener {
+public class CategoriesFragment extends Fragment {
 
     private IOnMyCatalogClickListener catalogClickListener;
-    private LinkedList<Category> women_categories_list, child_categories_list;
+    private Category category;
 
     // названия компаний (групп)
     String[] lv_groups = new String[]{Categories.WOMEN_CATEGORY,
             Categories.MEN_CATEGORY,
             Categories.CHILDREN_CATEGORY,
             Categories.ACCESSORIES_CATEGORY};
-
-    // названия телефонов (элементов)
-    String[] phonesHTC = new String[]{"Sensation", "Desire", "Wildfire", "Hero"};
-    String[] phonesSams = new String[]{"Galaxy S II", "Galaxy Nexus", "Wave"};
-    String[] phonesLG = new String[]{"Optimus", "Optimus Link", "Optimus Black", "Optimus One"};
 
     // коллекция для групп
     ArrayList<Map<String, String>> groupData;
@@ -137,27 +129,33 @@ public class CategoriesFragment extends Fragment implements
 
         elvMain = (ExpandableListView) view.findViewById(R.id.elvMain);
         elvMain.setAdapter(adapter);
+        elvMain.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                category = new Category();
+                TextView tv = (TextView) v.findViewById(android.R.id.text1);
+
+                String data = tv.getText().toString();
+                category.parent = data;
+                return false;
+            }
+        });
+
         elvMain.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
                 String data = tv.getText().toString();
-
-                return true;
+                category.child = data;
+                catalogClickListener.onCategoryClick(category);
+                return false;
             }
         });
         return view;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Category category = women_categories_list.get(i);
-        catalogClickListener.onCatalogClick(category);
-    }
-
     public interface IOnMyCatalogClickListener {
-        void onCatalogClick(Category category);
+        void onCategoryClick(Category category);
     }
 
 }

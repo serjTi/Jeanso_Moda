@@ -42,7 +42,7 @@ public class DownloadABVXML extends AsyncTask<String, Void, String> {
         HttpClient client = new DefaultHttpClient();
         HttpGet httpGet;
         try {
-            httpGet = new HttpGet(Const.BASE_URL);
+            httpGet = new HttpGet(Const.ABV_BASE_URL);
             HttpResponse response = client.execute(httpGet);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();

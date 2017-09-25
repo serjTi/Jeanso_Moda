@@ -47,7 +47,7 @@ public class DownloadTosXml extends AsyncTask<String, Void, String> {
         HttpClient client = new DefaultHttpClient();
         HttpGet httpGet;
         try {
-            httpGet = new HttpGet(Categories.BASE_URL);
+            httpGet = new HttpGet(Const.TOS_BASE_URL);
             HttpResponse response = client.execute(httpGet);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();

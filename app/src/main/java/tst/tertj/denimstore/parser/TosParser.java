@@ -27,7 +27,7 @@ public class TosParser {
     private Offer offer;
     private String text;
     private DataManager data_manager = DataManager.getInstance();
-    String zpt = ", ";
+    private String zpt = ", ";
     boolean duplicateOffers = false;
 
     public TosParser() {
@@ -208,9 +208,6 @@ public class TosParser {
                     data_manager.women_underwear.add(offer);
                     break;
 
-                case Categories.MenCategories.CATEGORY_MEN_JEANS:
-                    data_manager.men_jeans.add(offer);
-                    break;
 
                 case Categories.WomenCategories.CATEGORY_WOMEN_OVERALLS:
                     data_manager.women_overalls.add(offer);
@@ -228,6 +225,46 @@ public class TosParser {
                     data_manager.women_skirts.add(offer);
                     break;
 
+                case Categories.MenCategories.CATEGORY_MEN_JEANS:
+                    data_manager.men_jeans.add(offer);
+                    break;
+
+                case Categories.MenCategories.CATEGORY_MEN_JACKETS:
+                    data_manager.men_jackets.add(offer);
+                    break;
+
+                case Categories.MenCategories.CATEGORY_MEN_MAIKI:
+                    data_manager.men_maiki.add(offer);
+                    break;
+
+                case Categories.MenCategories.CATEGORY_MEN_PIZDAKI:
+                    data_manager.men_pizdaki.add(offer);
+                    break;
+
+                case Categories.MenCategories.CATEGORY_MEN_SHIRTS:
+                    data_manager.men_shirts.add(offer);
+                    break;
+
+                case Categories.MenCategories.CATEGORY_MEN_SWEATERS:
+                    data_manager.men_sweaters.add(offer);
+                    break;
+
+                case Categories.MenCategories.CATEGORY_MEN_T_SHIRTS:
+                    data_manager.men_t_shirts.add(offer);
+                    break;
+
+                case Categories.MenCategories.CATEGORY_MEN_TROUSERS:
+                    data_manager.men_trousers.add(offer);
+                    break;
+
+                case Categories.MenCategories.CATEGORY_MEN_UNDERWEAR:
+                    data_manager.men_underwear.add(offer);
+                    break;
+
+                case Categories.MenCategories.CATEGORY_MEN_WAISTCOAT:
+                    data_manager.men_waistcoat.add(offer);
+                    break;
+
                 case Categories.ChildrenCategories.CATEGORY_CHILD_SHORTS:
                     data_manager.child_shorts.add(offer);
                     break;
@@ -236,7 +273,7 @@ public class TosParser {
                     data_manager.child_skirts.add(offer);
                     break;
 
-                case  Categories.ChildrenCategories.CATEGORY_CHILD_T_SHORTS:
+                case Categories.ChildrenCategories.CATEGORY_CHILD_T_SHORTS:
                     data_manager.child_t_shorts.add(offer);
                     break;
 
@@ -244,8 +281,47 @@ public class TosParser {
                     data_manager.child_sweaters.add(offer);
                     break;
 
+                case Categories.AccessoriesCategories.ACCESSORIES_BAGS_WALLETS:
+                    data_manager.accessories_bags_wallets.add(offer);
+                    break;
+
+                case Categories.AccessoriesCategories.ACCESSORIES_TIES:
+                    data_manager.accessories_tie.add(offer);
+                    break;
+
+                case Categories.AccessoriesCategories.ACCESSORIES_BELTS:
+                    data_manager.accessories_belt.add(offer);
+                    break;
+
+                case Categories.AccessoriesCategories.ACCESSORIES_BOW_TIE:
+                    data_manager.accessories_bow_tea.add(offer);
+                    break;
+
+                case Categories.AccessoriesCategories.ACCESSORIES_GLOVES:
+                    data_manager.accessories_gloves.add(offer);
+                    break;
+
+                case Categories.AccessoriesCategories.ACCESSORIES_HAT:
+                    data_manager.accessories_hat.add(offer);
+                    break;
+
+                case Categories.AccessoriesCategories.ACCESSORIES_HATS:
+                    data_manager.accessories_hat_2.add(offer);
+                    break;
+
+                case Categories.AccessoriesCategories.ACCESSORIES_SCARFS:
+                    data_manager.accessories_scarf.add(offer);
+                    break;
+
+                case Categories.AccessoriesCategories.ACCESSORIES_SUNGLUSSES:
+                    data_manager.accessories_sunglasses.add(offer);
+                    break;
+
+                case Categories.AccessoriesCategories.ACCESSORIES_SUSPENDERS:
+                    data_manager.accessories_suspenders.add(offer);
+                    break;
+
                 default:
-                    data_manager.offersList.add(offer);
                     break;
             }
         }

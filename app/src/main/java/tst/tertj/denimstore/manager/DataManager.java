@@ -54,6 +54,19 @@ public class DataManager {
     public LinkedList<Offer> men_underwear;
 
 
+    public LinkedList<Offer> accessories_belt;   //remni
+    public LinkedList<Offer> accessories_bow_tea;   // babochki
+    public LinkedList<Offer> accessories_suspenders; //podtiagki
+    public LinkedList<Offer> accessories_tie;   //galstuki
+    public LinkedList<Offer> accessories_bags_wallets;
+    public LinkedList<Offer> accessories_hat; //shapki
+    public LinkedList<Offer> accessories_scarf;
+    public LinkedList<Offer> accessories_gloves;
+    public LinkedList<Offer> accessories_underwear;
+    public LinkedList<Offer> accessories_sunglasses;
+    public LinkedList<Offer> accessories_hat_2; //shliapi
+
+
     public Offer choosen_offer;
 
     public static DataManager getInstance() {
@@ -105,6 +118,18 @@ public class DataManager {
         men_pizdaki = new LinkedList<>();
         men_t_shirts = new LinkedList<>();
         men_underwear = new LinkedList<>();
+
+        accessories_belt = new LinkedList<>();
+        accessories_bow_tea = new LinkedList<>();
+        accessories_suspenders = new LinkedList<>();
+        accessories_tie = new LinkedList<>();
+        accessories_bags_wallets = new LinkedList<>();
+        accessories_hat = new LinkedList<>();
+        accessories_scarf = new LinkedList<>();
+        accessories_gloves = new LinkedList<>();
+        accessories_underwear = new LinkedList<>();
+        accessories_sunglasses = new LinkedList<>();
+        accessories_hat_2 = new LinkedList<>();
 
     }
 }

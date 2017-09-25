@@ -53,6 +53,13 @@ public class ProductsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         Offer offer = offersList.get(position);
+
+        if(offer.diller.equals(Const.Dillers.TOS)){
+            int drop_price = Integer.parseInt(offer.drop_price);
+            int price = drop_price + (drop_price * 35 / 100);
+            offer.price = String.valueOf(price);
+        }
+
         // reuse views
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -72,7 +79,9 @@ public class ProductsAdapter extends BaseAdapter {
         Glide.with(context).load(offer.images.get(0)).into(viewHolder.ivMainPicture);
         viewHolder.tvOfferName.setText(offer.name);
         viewHolder.tvOfferPrice.setText(offer.price + " " + offer.currencyId);
-        viewHolder.tvCountryOfOrigin.setText("Страна производитель: " + offer.country_of_origin);
+        if(offer.country_of_origin != null){
+            viewHolder.tvCountryOfOrigin.setText("Страна производитель: " + offer.country_of_origin);
+        }
         return convertView;
     }
 }

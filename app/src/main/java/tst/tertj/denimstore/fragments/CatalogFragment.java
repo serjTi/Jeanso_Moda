@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 
@@ -21,6 +23,7 @@ public class CatalogFragment extends Fragment implements AdapterView.OnItemClick
 
     private ProductsAdapter productsAdapter;
     private ListView lvOffers;
+    private TextView tv_no_products;
     private LinkedList<Offer> offersList = new LinkedList<>();
     private IOnMyOfferListClickListener myOfferListClickListener;
 
@@ -39,12 +42,13 @@ public class CatalogFragment extends Fragment implements AdapterView.OnItemClick
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_catalog, container, false);
         lvOffers = (ListView) view.findViewById(R.id.lvOffers);
+        tv_no_products = (TextView) view.findViewById(R.id.tv_no_products);
         lvOffers.setOnItemClickListener(this);
         if(offersList.size() > 0) {
             productsAdapter = new ProductsAdapter(getActivity(), offersList);
             lvOffers.setAdapter(productsAdapter);
         } else{
-
+            tv_no_products.setVisibility(View.VISIBLE);
         }
             return view;
     }

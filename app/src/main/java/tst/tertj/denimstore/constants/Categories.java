@@ -6,7 +6,7 @@ package tst.tertj.denimstore.constants;
 
 public class Categories {
 
-    public static final String BASE_URL = "https://timeofstyle.com/prom_yml_drop_catalog.xml";
+
 
     public static final String WOMEN_CATEGORY = "Женская одежда";
     public static final String MEN_CATEGORY = "Мужская одежда";
@@ -52,27 +52,33 @@ public class Categories {
                 "Шорты",//415
                 "Юбки"
         };
-
-        public static final int[] CATEGORY_WOMEN_ID = {
-                401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414,
-                415, 416};
-
     }
 
     public static class MenCategories {
         //    men categories
         public static final String CATEGORY_MEN_JEANS = "109";
+        public static final String CATEGORY_MEN_TROUSERS = "64";
+        public static final String CATEGORY_MEN_SWEATERS = "66";
+        public static final String CATEGORY_MEN_JACKETS = "67";
+        public static final String CATEGORY_MEN_WAISTCOAT = "68";
+        public static final String CATEGORY_MEN_MAIKI = "70";
+        public static final String CATEGORY_MEN_SHIRTS = "71";
+        public static final String CATEGORY_MEN_PIZDAKI = "72";
+        public static final String CATEGORY_MEN_T_SHIRTS = "73";
+        public static final String CATEGORY_MEN_UNDERWEAR = "88";
+
+
         public static final String[] MEN_CATEGORIES_NAMES = {
-                "Джинсы",//404
-                "Брюки", //403
-                "Свитера",//413
-                "Куртки",//409
-                "Жилетки",//405
-                "Майки",//411
-                "Рубашки", //401
-                "Пиджаки",//408
-                "Футболки", //402
-                "Белье", //402
+                "Джинсы",
+                "Брюки",
+                "Свитера",
+                "Куртки",
+                "Жилетки",
+                "Майки",
+                "Рубашки",
+                "Пиджаки",
+                "Футболки",
+                "Белье",
         };
     }
 
@@ -89,12 +95,20 @@ public class Categories {
                 "Батники",
                 "Юбки"
         };
-
-        public static final int[] CHILDREN_CATEGORIES_ID = {
-                301, 302, 303, 304};
     }
 
     public static class AccessoriesCategories {
+
+        public static final String ACCESSORIES_BELTS = "60";
+        public static final String ACCESSORIES_BOW_TIE = "92";
+        public static final String ACCESSORIES_SUSPENDERS = "93";
+        public static final String ACCESSORIES_TIES = "94";
+        public static final String ACCESSORIES_BAGS_WALLETS = "95";
+        public static final String ACCESSORIES_HAT = "96";
+        public static final String ACCESSORIES_SCARFS = "466";
+        public static final String ACCESSORIES_GLOVES = "467";
+        public static final String ACCESSORIES_SUNGLUSSES = "492";
+        public static final String ACCESSORIES_HATS = "493";
 
         public static final String[] ACCESSORIES_CATEGORIES_NAMES = {
                 "Ремни",
@@ -105,9 +119,9 @@ public class Categories {
                 "Шапки",
                 "Шарфы",
                 "Перчатки",
-                "Купальники",
                 "Очки",
                 "Шляпы"
         };
+
     }
 }

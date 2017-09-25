@@ -5,6 +5,6 @@ package tst.tertj.denimstore.POJO;
  */
 
 public class Category {
-    public String name;
-    public int _id;
+    public String parent;
+    public String child;
 }
